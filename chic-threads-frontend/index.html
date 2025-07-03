@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chic Threads Home</title>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        @media (max-width: 768px) {
+            .navbar-brand img {
+                max-height: 30px;
+            }
+            
+            .product-card {
+                margin-bottom: 1rem;
+            }
+            
+            .collection-img img {
+                height: 200px;
+                object-fit: cover;
+            }
+            
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+            }
+            
+            .display-4 {
+                font-size: 2rem;
+            }
+            
+            .display-6 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand img {
+                max-height: 25px;
+            }
+            
+            .collection-img img {
+                height: 150px;
+            }
+            
+            .btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+            
+            .display-4 {
+                font-size: 1.75rem;
+            }
+            
+            .display-6 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex justify-content-between align-items-center order-lg-0" href="index.html">
+                <img src="images/logo.png" alt="site icon" class="img-fluid" style="max-height: 70px;">
+                <!-- <span class="text-uppercase fw-lighter ms-1 d-none d-sm-inline">Attire</span> -->
+            </a>
+
+            <div class="order-lg-2 nav-btns d-flex align-items-center">
+                <a href="profile.html" class="btn btn-outline-primary me-2 d-none d-md-inline-block">Profile</a>
+                <button type="button" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge bg-primary cart-count">0</span>
+                </button>
+                <button type="button" class="btn position-relative" id="wishlist-nav-btn" data-bs-toggle="modal" data-bs-target="#wishlistModal">
+                    <i class="fa fa-heart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge bg-primary wishlist-count">0</span>
+                </button>
+                <button type="button" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#searchModal">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-lg-1" id="navMenu">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="#header">home</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="#collection">collection</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="#special">specials</a>
+                    </li>
+                    <li class="nav-item px-2 py-2 border-0">
+                        <a class="nav-link text-uppercase text-dark" href="#popular">popular</a>
+                    </li>
+                    <li class="nav-item px-2 py-2 border-0">
+                        <a class="nav-link text-uppercase text-dark" href="./contact.html">contact us</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="about.html">about us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end of navbar -->
+
+    <!-- toast container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        <div id="notification-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong class="me-auto" id="toast-title">Notification</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast-message"></div>
+        </div>
+    </div>
+    <!-- end of toast container -->
+
+    <!-- cart modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Shopping Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="cart-items"></tbody>
+                        </table>
+                    </div>
+                    <h5>Total: $<span id="cart-total">0.00</span></h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="checkout-btn">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of cart modal -->
+
+    <!-- checkout modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkout-form">
+                        <div class="mb-3">
+                            <label class="form-label">Card Number</label>
+                            <input type="text" class="form-control" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Expiry Date</label>
+                            <input type="text" class="form-control" placeholder="MM/YY" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">CVV</label>
+                            <input type="text" class="form-control" placeholder="123" required>
+                        </div>
+                        <button type="button" class="btn btn-primary" id="pay-now">Pay Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of checkout modal -->
+
+    <!-- product modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="" alt="Product Image" class="img-fluid rounded mb-3" id="product-image">
+                        </div>
+                        <div class="col-md-6">
+                            <h5 id="product-name" class="mb-3"></h5>
+                            <p id="product-description" class="text-muted mb-3"></p>
+                            <p class="mb-2">Units Left: <span id="product-units" class="badge bg-info"></span></p>
+                            <p class="mb-3">
+                                <span id="product-discount-price" class="h4 text-primary"></span>
+                                <span class="text-muted text-decoration-line-through ms-2" id="product-original-price"></span>
+                                <span class="badge bg-success ms-2" id="product-discount"></span>
+                            </p>
+                            <div class="mb-3 d-flex align-items-center">
+                                <button class="btn btn-outline-primary" id="decrease-quantity">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span id="product-quantity" class="mx-3 h5 mb-0">1</span>
+                                <button class="btn btn-outline-primary" id="increase-quantity">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" id="add-to-cart-modal">
+                                    <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                </button>
+                                <button class="btn btn-success" id="buy-now">
+                                    <i class="fas fa-bolt me-2"></i>Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of product modal -->
+
+    <!-- wishlist modal -->
+    <div class="modal fade" id="wishlistModal" tabindex="-1" aria-labelledby="wishlistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="wishlistModalLabel">
+                        <i class="fas fa-heart text-danger me-2"></i>My Wishlist
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="wishlist-empty" class="text-center py-5 d-none">
+                        <i class="fas fa-heart-broken text-muted fa-3x mb-3"></i>
+                        <h5>Your wishlist is empty</h5>
+                        <p class="text-muted">Add items to your wishlist to see them here</p>
+                    </div>
+                    <div id="wishlist-items-container">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="wishlist-items"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of wishlist modal -->
+
+    <!-- header -->
+    <header id="header" class="vh-100 carousel slide" data-bs-ride="carousel" style="padding-top: 104px;">
+        <div class="container h-100 d-flex align-items-center carousel-inner">
+            <div class="text-center carousel-item active">
+                <h2 class="text-capitalize text-dark display-6 display-md-4">best collection</h2>
+                <h1 class="text-uppercase py-2 fw-bold text-dark display-4 display-md-2">new arrivals</h1>
+                <a href="#" class="btn mt-3 text-uppercase">shop now</a>
+            </div>
+            <div class="text-center carousel-item">
+                <h2 class="text-capitalize text-dark display-6 display-md-4">best price & offer</h2>
+                <h1 class="text-uppercase py-2 fw-bold text-dark display-4 display-md-2">new season</h1>
+                <a href="#" class="btn mt-3 text-uppercase">buy now</a>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#header" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#header" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </header>
+    <!-- end of header -->
+
+    <!-- collection -->
+    <section id="collection" class="py-5">
+        <div class="container">
+            <div class="title text-center">
+                <h2 class="position-relative d-inline-block">Our Collections</h2>
+            </div>
+
+            <div class="category-names text-center mt-4 mb-3">
+                <div class="d-flex flex-wrap justify-content-center gap-2 gap-md-3">
+                    <button class="btn btn-outline-primary filter-btn btn-sm btn-md" data-filter=".daily">Daily Eastern Wears</button>
+                    <button class="btn btn-outline-primary filter-btn btn-sm btn-md" data-filter=".western">Western Tops</button>
+                    <button class="btn btn-outline-primary filter-btn btn-sm btn-md" data-filter=".partywear">Party Wears</button>
+                    <button class="btn btn-outline-danger filter-btn btn-sm btn-md" data-filter=".sale">Sale Items</button>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5">
+                <div class="filter-button-group w-100 w-md-auto mb-3 mb-md-0" id="filter-options">
+                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-start">
+                        <label class="me-2 mb-2 mb-md-0">Price:</label>
+                        <input type="number" class="form-control form-control-sm me-2" id="min-price" placeholder="Min" style="width: 100px;">
+                        <input type="number" class="form-control form-control-sm me-2" id="max-price" placeholder="Max" style="width: 100px;">
+                        <button type="button" class="btn btn-primary btn-sm" id="apply-price-filter">Apply</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm ms-2" id="clear-price-filter">Clear</button>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-outline-primary btn-sm" id="filter-toggle">
+                        <i class="fas fa-filter me-2"></i>Price Filter
+                    </button>
+                </div>
+            </div>
+
+            <div class="collection-list mt-4 row gx-0 gy-3">
+                <!-- Daily Wear -->
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 daily">
+                    <div class="product-card" data-id="1" data-name="Embroidered Shirt & Trouser" data-description="Embroidered Shirt & Trouser for daily wear" data-image="images/dailywear1.png" data-units="20" data-original-price="32.99" data-discount-price="32.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/dailywear1.png" class="w-100 product-image" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center product-info" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Embroidered Shirt & Trouser</p>
+                            <span class="fw-bold">$ 32.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- additional daily wear --> 
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 daily">
+                    <div class="product-card" data-id="2" data-name="SkyBlue Shirt and Trouser" data-description="2 piece stitched Skyblue Shirt Trouser with Embroidered NeckLine or Sleeves or daily wear" data-image="images/dailywear2.png" data-units="40" data-original-price="29.99" data-discount-price="26.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/dailywear2.png" class="w-100 product-image" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center product-info" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Minimal Embroidered Shirt & Trouser </p>
+                            <span class="fw-bold">$ 26.99</span>
+                        </div>
+                    </div>
+                </div>
+
+               <div class="col-md-6 col-lg-4 col-xl-3 p-2 daily">
+                    <div class="product-card" data-id="3" data-name="Plain Long Shirt & Trouser Pant" data-description="Plain 2 piece Stitched Red color Shirt  &  Plain Black Cambric Trouser Pant" data-image="images/dailywear3.png" data-units="40" data-original-price="29.99" data-discount-price="24.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/dailywear3.png" class="w-100 product-image" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center product-info" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Plain Long Shirt & Trouser Pant</p>
+                            <span class="fw-bold">$ 24.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+               <div class="col-md-6 col-lg-4 col-xl-3 p-2 daily">
+                    <div class="product-card" data-id="4" data-name="Olive Green Embroidered & Plain Trouser Pant" data-description=" 2 piece stitched Olive Green,embroidered neck and sleeves Shirt & Plain Cambric Trouser Pant" data-image="images/dailywear4.png" data-units="40" data-original-price="39.99" data-discount-price="30.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/dailywear4.png" class="w-100 product-image" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center product-info" data-bs-toggle="modal" data-bs-target="#productModal">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Embroidered Shirt & Plain Trouser Pant</p>
+                            <span class="fw-bold">$ 30.99</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sale Items -->
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 sale">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="2" data-name="OliveGreen & BlushPink Casual Wear" data-description="Olive green shirt with blush pink trouser" 
+                        data-image="images/new5.png" 
+                        data-units="15" data-original-price="59.99" data-discount-price="49.99" data-discount="33% Off">
+                        <div class="collection-img position-relative">
+                            <img src="images/new5.png" class="w-100">
+                            <span class="position-absolute bg-danger text-white d-flex align-items-center justify-content-center">sale</span>
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">OliveGreen & BlushPink Casual Wear</p>
+                            <span class="fw-bold">$ 49.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- additional Sale Items -->
+              
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 sale">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="9" data-name="Grey & LightBrown  Casual Wear" data-description="Comfortable Grey & LightBrown  Casual Wear" 
+                        data-image="images/new2.png" 
+                        data-units="15" data-original-price="59.99" data-discount-price="99.99" data-discount="33% Off">
+                        <div class="collection-img position-relative">
+                            <img src="images/new2.png" class="w-100">
+                            <span class="position-absolute bg-danger text-white d-flex align-items-center justify-content-center">sale</span>
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Grey & LightBrown  Casual Wear</p>
+                            <span class="fw-bold">$ 49.99</span>
+                        </div>
+                    </div>
+                </div>
+                 
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 sale">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="9" data-name="NavyBlue & Brown Casual Wear" data-description="Light summer NavyBlue & Brown  Casual Wear" 
+                        data-image="images/new3.png" 
+                        data-units="15" data-original-price="59.99" data-discount-price="49.99" data-discount="33% Off">
+                        <div class="collection-img position-relative">
+                            <img src="images/new3.png" class="w-100">
+                            <span class="position-absolute bg-danger text-white d-flex align-items-center justify-content-center">sale</span>
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">NavyBlue & Brown Casual Wear</p>
+                            <span class="fw-bold">$ 49.99</span>
+                        </div>
+                    </div>
+                </div>
+                  
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 sale">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="9" data-name="Skin & Black Casual Wear" data-description="Light summer Skin & Black Casual Wear" 
+                        data-image="images/new4.png" 
+                        data-units="15" data-original-price="59.99" data-discount-price="49.99" data-discount="33% Off">
+                        <div class="collection-img position-relative">
+                            <img src="images/new4.png" class="w-100">
+                            <span class="position-absolute bg-danger text-white d-flex align-items-center justify-content-center">sale</span>
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Skin & Black Casual Wear</p>
+                            <span class="fw-bold">$ 49.99</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            <!-- Western Tops -->
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="2" data-name="Light Blue Grey Top" data-description="Light Blue Grey Stylish Stiched Medium Size Top" 
+                        data-image="images/c_shirt-girl.png" 
+                        data-units="35" data-original-price="29.99" data-discount-price="19.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/c_shirt-girl.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Light Blue Grey Top</p>
+                            <span class="fw-bold">$ 19.99</span>
+                        </div>
+                    </div>
+                </div>
+                
+                   <!-- additional western tops -->
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="2" data-name="Floral Navy Blue Crop Top" data-description="Stylish White dotted Navy Blue floral western crop top" 
+                        data-image="images/c_undershirt.png" 
+                        data-units="30" data-original-price="27.99" data-discount-price="27.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/c_undershirt.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Floral Navy Blue Crop Top</p>
+                            <span class="fw-bold">$ 27.99</span>
+                        </div>
+                    </div>
+
+
+                </div>
+                   <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="3" data-name="Floral Navy Blue Dotted Crop Top" data-description="Stylish black dotted Grey floral western crop top" 
+                        data-image="images/c_formal_gray_shirt.png" 
+                        data-units="30" data-original-price="27.99" data-discount-price="17.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/c_formal_gray_shirt.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Floral Grey Crop Top</p>
+                            <span class="fw-bold">$ 17.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="4" data-name="Pastel Pink Silk Top" data-description="Stylish Pastel Pink Silk western top" 
+                        data-image="images/top2.jpg" 
+                        data-units="30" data-original-price="27.99" data-discount-price="17.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/top2.jpg" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Pastel Pink Silk Top</p>
+                            <span class="fw-bold">$ 17.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                     <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="5" data-name="Casual Jet Black Top " data-description="Casual summer comfortable black western top" 
+                        data-image="images/c_western-shirt.png" 
+                        data-units="30" data-original-price="27.99" data-discount-price="17.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/c_western-shirt.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Casual Jet Black Top</p>
+                            <span class="fw-bold">$ 17.99</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                 <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="6" data-name="Pastel Pink Polo Top" data-description="Plain SleeveLess pastel pink polo shirt" 
+                        data-image="images/c_polo-shirt.png" 
+                        data-units="30" data-original-price="27.99" data-discount-price="17.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/c_polo-shirt.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Pastel Pink Polo Top</p>
+                            <span class="fw-bold">$ 17.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="7" data-name="Embroidered Neckline SkyBlue Top" data-description="Stylish embroidered collar neckline sky blue western top with front button line & long sleeves " 
+                        data-image="images/top4.jpg" 
+                        data-units="30" data-original-price="27.99" data-discount-price="17.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/top4.jpg" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Embroidered Neckline Sky Blue Top</p>
+                            <span class="fw-bold">$ 17.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 western">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="8" data-name="Casual Black Tunic Top" data-description="Comfortable black tunic top with folded sleeves design" 
+                        data-image="images/c_tunic-shirt_girl.png" 
+                        data-units="30" data-original-price="27.99" data-discount-price="17.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/c_tunic-shirt_girl.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Casual Black Tunic Top</p>
+                            <span class="fw-bold">$ 17.99</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Party Wear -->
+            
+                
+                <!-- party wear-->
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 partywear">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="3" data-name="Sea-Green Sleeves Maxci" data-description="Two piece stitched Sea-Green Maxci with Embroidered Sleeves" 
+                        data-image="images/partywear1.jpg" 
+                        data-units="25" data-original-price="49.99" data-discount-price="44.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/partywear1.jpg" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Green Embroidered Sleeves Maxci</p>
+                            <span class="fw-bold">$ 44.99</span>
+                        </div>
+                    </div>
+                </div>
+
+
+               <div class="col-md-6 col-lg-4 col-xl-3 p-2 partywear">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="3" data-name="Maroon Velvet Embroidered Maxci" data-description="Stylish Maroon Velvet Embroidered Nech Sleeves Maxci" 
+                        data-image="images/partywear7.png" 
+                        data-units="15" data-original-price="44.99" data-discount-price="37.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/partywear7.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Maroon Embroidered Sleeves Maxci</p>
+                            <span class="fw-bold">$ 37.99</span>
+                        </div>
+                    </div>
+                </div>
+            
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2 partywear">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="7" data-name="Sea-Blue Embroidered Party Gown" data-description="Stylish Sea-Blue upper part and sleeves Embroidered Party Gown" 
+                        data-image="images/partywear4.png" 
+                        data-units="15" data-original-price="45.99" data-discount-price="39.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/partywear4.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Sea-Blue Embroidered Party Gown</p>
+                            <span class="fw-bold">$ 39.99</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-md-6 col-lg-4 col-xl-3 p-2 partywear">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" 
+                        data-id="2" data-name="Black Western Long Maxci" data-description="Stylish black western long Maxci" 
+                        data-image="images/partywear5.png" 
+                        data-units="15" data-original-price="38.99" data-discount-price="32.99" data-discount="">
+                        <div class="collection-img position-relative">
+                            <img src="images/partywear5.png" class="w-100">
+                            <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="rating mt-3">
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                                <span class="text-primary"><i class="fas fa-star"></i></span>
+                            </div>
+                            <p class="text-capitalize my-1">Black Western Long Maxci</p>
+                            <span class="fw-bold">$ 32.99</span>
+                        </div>
+                    </div>
+                </div>
+        
+
+            </div>
+        </div>
+    </section>
+    <!-- end of collection -->
+
+
+    <!-- special products -->
+    <section id="special" class="py-5">
+        <div class="container">
+            <div class="title text-center py-5">
+                <h2 class="position-relative d-inline-block">Special Collection</h2>
+            </div>
+
+            <div class="special-list row g-0 g-md-2">
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" data-id="9" data-name="Skin Bridal Dress" data-description="Heavy Embroidered Skin Color Bridal Lehnga with attached CAN CAN and duppatta " data-image="images/bride2.png" data-units="300" data-original-price="65.50" data-discount-price="45.50" data-discount="30% Off">
+                        <div class="special-img position-relative overflow-hidden">
+                            <img src="images/bride2.png" class="w-100">
+                            <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4 wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-capitalize mt-3 mb-1">Mahrosh Bridal Article</p>
+                            <span class="fw-bold d-block">$ 125.50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" data-id="10" data-name="Lavender Bridal Dress" data-description="Heavy Embroidered Lavender Color Bridal Lehnga with attached CAN CAN and heavy duppatta " data-image="images/bride3.png" data-units="200" data-original-price="150.00" data-discount-price="99.99" data-discount="33% Off">
+                        <div class="special-img position-relative overflow-hidden">
+                            <img src="images/bride3.png" class="w-100">
+                            <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4 wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-capitalize mt-3 mb-1">Naqsh Bridal Article </p>
+                            <span class="fw-bold d-block">$ 119.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" data-id="11" data-name="Bottle-Green Bridal Dress" data-description="Heavy Embroidered Bottle-Green Color Bridal Lehnga with attached CAN CAN and duppatta " data-image="images/bride1.png" data-units="150" data-original-price="200.00" data-discount-price="149.99" data-discount="25% Off">
+                        <div class="special-img position-relative overflow-hidden">
+                            <img src="images/bride1.png" class="w-100">
+                            <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4 wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-capitalize mt-3 mb-1">Rangraeza Bridal Article</p>
+                            <span class="fw-bold d-block">$ 149.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 p-2">
+                    <div class="product-card" data-bs-toggle="modal" data-bs-target="#productModal" data-id="12" data-name="Red Bridal Dress" data-description="Heavy Embroidered Red Color Bridal Lehnga with attached CAN CAN and duppatta " data-image="images/bride5.png" data-units="250" data-original-price="180.00" data-discount-price="129.99" data-discount="28% Off">
+                        <div class="special-img position-relative overflow-hidden">
+                            <img src="images/bride5.png" class="w-100">
+                            <span class="position-absolute d-flex align-items-center justify-content-center text-primary fs-4 wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-capitalize mt-3 mb-1">Mursel Bridal Article</p>
+                            <span class="fw-bold d-block">$ 129.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of special products -->
+
+    <!-- offers -->
+    <section id="offers" class="py-5">
+        <div class="container">
+            <div class="row d-flex align-items-center justify-content-center text-center justify-content-lg-start text-lg-start">
+                <div class="offers-content">
+                    <span class="text-white fs-5 fs-md-4">Discount Up To 40%</span>
+                    <h2 class="mt-2 mb-4 text-white display-6 display-md-4">Grand Sale Offer!</h2>
+                    <a href="#sale" class="btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of offers -->
+
+    <!-- popular -->
+    <section id="popular" class="py-5">
+        <div class="container">
+            <div class="title text-center pt-3 pb-5">
+                <h2 class="position-relative d-inline-block ms-4">Popular Of This Year</h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Top Rated -->
+                <div class="col-md-6 col-lg-4">
+                    <h3 class="fs-5 mb-4">Top Rated</h3>
+                    <div class="d-flex flex-column gap-4">
+                        <div class="d-flex align-items-start">
+                            <img src="images/top4.jpg" alt="Blue Shirt" class="img-fluid pe-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1 fs-6">Blue Top</h5>
+                                <p class="text-muted small mb-1">Classic blue Top perfect for any occasion</p>
+                                <span class="text-primary fw-bold">$ 20.00</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <img src="images/c_formal_gray_shirt.png" alt="Floral Dress" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Grey Top</h5>
+                                <p class="text-muted small mb-1">Casual Grey Top for summer days</p>
+                                <span class="text-primary fw-bold">$ 45.00</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <img src="images/c_tunic-shirt_girl.png" alt="Denim Jacket" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Black Tunic Shirt</h5>
+                                <p class="text-muted small mb-1">Stylish Black Tunic Shirt for casual outings</p>
+                                <span class="text-primary fw-bold">$ 35.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Best Selling -->
+                <div class="col-md-6 col-lg-4">
+                    <h3 class="fs-5 mb-4">Best Selling</h3>
+                    <div class="d-flex flex-column gap-4">
+                        <div class="d-flex align-items-start">
+                            <img src="images/c_undershirt.png" alt="White T-Shirt" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">NavyBlue Crop Top</h5>
+                                <p class="text-muted small mb-1">Floral NavyBlue Crop Top for everyday wear</p>
+                                <span class="text-primary fw-bold">$ 15.00</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <img src="images/best_selling_2.jpg" alt="Black Blazer" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Black Blazer</h5>
+                                <p class="text-muted small mb-1">Professional black blazer for formal occasions</p>
+                                <span class="text-primary fw-bold">$ 89.00</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <img src="images/c_shirt-girl.png" alt="Summer Dress" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Summer Dress</h5>
+                                <p class="text-muted small mb-1">Light and comfortable summer dress</p>
+                                <span class="text-primary fw-bold">$ 39.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Arrivals -->
+                <div class="col-md-6 col-lg-4">
+                    <h3 class="fs-5 mb-4">New Arrivals</h3>
+                    <div class="d-flex flex-column gap-4">
+                        <div class="d-flex align-items-start">
+                            <img src="images/c_western-shirt.png" alt="Designer Gown" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Casual Black Top</h5>
+                                <p class="text-muted small mb-1">Elegant designer Casual Black Top </p>
+                                <span class="text-primary fw-bold">$ 129.00</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <img src="images/c_t-shirt_men.png" alt="Casual Shirt" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Casual Shirt</h5>
+                                <p class="text-muted small mb-1">Comfortable casual shirt for daily wear</p>
+                                <span class="text-primary fw-bold">$ 25.00</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <img src="images/top_rated_3.jpg" alt="Winter Coat" class="img-fluid pe-3" style="width: 100px; height: 100px; object-fit: cover;">
+                            <div>
+                                <h5 class="mb-1">Winter Jacket</h5>
+                                <p class="text-muted small mb-1">Warm and stylish winter Jacket</p>
+                                <span class="text-primary fw-bold">$ 149.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of popular -->
+
+    <!-- newsletter -->
+    <section id="newsletter" class="py-5">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div class="title text-center pt-3 pb-5">
+                    <h2 class="position-relative d-inline-block ms-4">Newsletter Subscription</h2>
+                </div>
+                <p class="text-center text-muted px-3">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <div class="input-group mb-3 mt-3 w-100 w-md-75 w-lg-50">
+                    <input type="text" class="form-control" placeholder="Enter Your Email ...">
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of newsletter -->
+
+    <!-- help button -->
+    <button class="btn btn-primary position-fixed bottom-0 end-0 m-4 rounded-circle" style="width: 60px; height: 60px; z-index: 1000;" data-bs-toggle="modal" data-bs-target="#helpModal">
+        <i class="fas fa-question fa-2x"></i>
+    </button>
+
+    <!-- help modal -->
+    <!-- help modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        
+            <div class="modal-header">
+                <h5 class="modal-title" id="helpModalLabel">
+                    <i class="fas fa-info-circle me-2"></i>Website Overview
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <video class="w-100 mb-4" controls autoplay muted playsinline>
+                    <source src="images/video.mp4" type="video/mp4">
+                    <source src="images/video.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
+
+                <div class="help-content">
+                    <h6 class="mb-3">Quick Guide:</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-shopping-cart me-2 text-primary"></i>
+                            Browse products by category or use the filter options
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-heart me-2 text-primary"></i>
+                            Add items to your wishlist for later 
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-tag me-2 text-primary"></i>
+                            Check out our sale items for great deals
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-user me-2 text-primary"></i>
+                            Create an account to track orders and save favorites
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <!-- success modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="success-message" class="text-center"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of success modal -->
+
+    <!-- Login Required Modal -->
+    <div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="loginRequiredModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginRequiredModalLabel">Login Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Please login to your account to proceed with checkout.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchModalLabel">Search Products</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="search-input" placeholder="Enter product name...">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="search-btn">Search</button>
+                    <button type="button" class="btn btn-outline-secondary" id="clear-search-btn">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of Search Modal -->
+
+    <!-- footer -->
+    <footer class="bg-dark py-5">
+        <div class="container">
+            <div class="row text-white g-4">
+                <div class="col-md-6 col-lg-3">
+                    <a class="text-uppercase text-decoration-none brand text-white" href="index.html">Chic Threads</a>
+                    <p class="text-white-50 mt-3 small">Your one-stop destination for trendy and affordable fashion. Shop the latest styles in clothing, accessories, and more.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-uppercase mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="about.html" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="contact.html" class="text-white-50 text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQs</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Shipping Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Return Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-uppercase mb-3">Categories</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Daily Wear</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Western Tops</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Eastern Tops</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">New Collection</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Sale Items</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h5 class="text-uppercase mb-3">Newsletter</h5>
+                    <p class="text-white-50">Subscribe to our newsletter for updates and exclusive offers.</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Enter your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                    <div class="payment-methods mt-3">
+                        <h6 class="text-uppercase mb-2">We Accept</h6>
+                        <div class="d-flex gap-2">
+                            <i class="fab fa-cc-visa fa-2x text-white-50"></i>
+                            <i class="fab fa-cc-mastercard fa-2x text-white-50"></i>
+                            <i class="fab fa-cc-amex fa-2x text-white-50"></i>
+                            <i class="fab fa-cc-paypal fa-2x text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="text-white-50 my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0 small">&copy; 2024 ChicThreads. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white-50 text-decoration-none me-3 small">Privacy Policy</a>
+                    <a href="#" class="text-white-50 text-decoration-none small">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer -->
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- isotope js -->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- cart js -->
+    <script src="js/cart.js"></script>
+    <!-- custom js -->
+    <script src="js/script.js"></script>
+</body>
+</html>

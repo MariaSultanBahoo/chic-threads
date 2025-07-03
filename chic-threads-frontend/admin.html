@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Chic Threads</title>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex justify-content-between align-items-center order-lg-0" href="index.html">
+                <img src="images/logo.png" alt="site icon" >
+                <!-- <span class="text-uppercase fw-lighter ms-1">Attire</span> -->
+            </a>
+
+            <div class="order-lg-2 nav-btns">
+                <a href="profile.html" class="btn btn-outline-primary me-2">Profile</a>
+                <button type="button" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge bg-primary cart-count">0</span>
+                </button>
+                <button type="button" class="btn position-relative" id="wishlist-nav-btn" data-bs-toggle="modal" data-bs-target="#wishlistModal">
+                    <i class="fa fa-heart"></i>
+                    <span class="position-absolute top-0 end-0 p-2 text-primary wishlist-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="Add to Wishlist">
+                        <i class="fas fa-heart"></i>
+                    </span>
+                </button>
+                <button type="button" class="btn position-relative">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-lg-1" id="navMenu">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="#header">home</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="#collection">collection</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="#special">specials</a>
+                    </li>
+
+                    <li class="nav-item px-2 py-2 border-0">
+                        <a class="nav-link text-uppercase text-dark" href="#popular">popular</a>
+                    </li>
+                    <li class="nav-item px-2 py-2 border-0">
+                        <a class="nav-link text-uppercase text-dark" href="./contact.html">contact us</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="about.html">about us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end of navbar -->
+    <!-- admin panel -->
+    <section class="py-5" style="padding-top: 100px;">
+        <div class="container">
+            <h2 class="text-center mb-4">Admin Panel - Checkout Management</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Delivery Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="checkout-list"></tbody>
+            </table>
+        </div>
+    </section>
+    <!-- end of admin panel -->
+
+    <!-- jquery -->
+    <script src="js/jquery-3.6.0.js"></script>
+    <!-- bootstrap js -->
+    <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if admin is logged in
+            $.ajax({
+                url: 'http://localhost:3000/session',
+                method: 'GET',
+                success: function(data) {
+                    if (!data.username || data.role !== 'admin') {
+                        window.location.href = 'index.html';
+                    } else {
+                        loadCheckouts();
+                    }
+                }
+            });
+
+            // Load checkouts
+            function loadCheckouts() {
+                $.ajax({
+                    url: 'http://localhost:3000/checkouts',
+                    method: 'GET',
+                    success: function(data) {
+                        const $checkoutList = $('#checkout-list');
+                        $checkoutList.empty();
+                        data.forEach((checkout, index) => {
+                            const items = checkout.items.map(item => `${item.name} (x${item.quantity})`).join(', ');
+                            $checkoutList.append(`
+                                <tr>
+                                    <td>${checkout.user}</td>
+                                    <td>${items}</td>
+                                    <td>$${checkout.total.toFixed(2)}</td>
+                                    <td>${new Date(checkout.date).toLocaleString()}</td>
+                                    <td>
+                                        <select class="status-select" data-id="${index}">
+                                            <option value="Pending" ${checkout.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                            <option value="Processed" ${checkout.status === 'Processed' ? 'selected' : ''}>Processed</option>
+                                            <option value="Cancelled" ${checkout.status === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="delivery-status-select" data-id="${index}">
+                                            <option value="Not Shipped" ${checkout.deliveryStatus === 'Not Shipped' ? 'selected' : ''}>Not Shipped</option>
+                                            <option value="Shipped" ${checkout.deliveryStatus === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                                            <option value="Delivered" ${checkout.deliveryStatus === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary update-status" data-id="${index}">Update</button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                    }
+                });
+            }
+
+            // Update status
+            $(document).on('click', '.update-status', function() {
+                const id = $(this).data('id');
+                const status = $(`.status-select[data-id="${id}"]`).val();
+                const deliveryStatus = $(`.delivery-status-select[data-id="${id}"]`).val();
+                $.ajax({
+                    url: `http://localhost:3000/checkouts/${id}`,
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ status, deliveryStatus }),
+                    success: function() {
+                        loadCheckouts();
+                    }
+                });
+            });
+
+            // Logout
+            $('#logout-btn').click(function() {
+                $.ajax({
+                    url: 'http://localhost:3000/logout',
+                    method: 'POST',
+                    success: function() {
+                        window.location.href = 'index.html';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

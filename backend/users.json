@@ -1,0 +1,137 @@
+{
+  "admin": {
+    "password": "admin123",
+    "role": "admin",
+    "email": "admin@attire.com"
+  },
+  "maria": {
+    "password": "maria123",
+    "role": "user",
+    "email": "maria@gmail.com"
+  },
+  "Aimen": {
+    "password": "aimen",
+    "role": "user",
+    "email": "aimen123@gmail.com"
+  },
+  "eman": {
+    "password": "emanqamar",
+    "role": "user",
+    "email": "emanqamar123@gmail.com"
+  },
+  "ats": {
+    "password": "ats",
+    "role": "user",
+    "email": "cajayo6607@jazipo.com"
+  },
+  "ayesha": {
+    "password": "ayesha",
+    "role": "user",
+    "email": "ayesha123@gmail.com"
+  },
+  "amna": {
+    "password": "amna",
+    "role": "user",
+    "email": "amna123@gmail.com"
+  },
+  "nimra": {
+    "password": "nimra",
+    "role": "user",
+    "email": "nimra@gmail.com"
+  },
+  "anum": {
+    "password": "anum",
+    "role": "user",
+    "email": "anum@gmail.com"
+  },
+  "muzna": {
+    "password": "muzna",
+    "role": "user",
+    "email": "muzna@gmail.com"
+  },
+  "zoya": {
+    "password": "123435676",
+    "role": "user",
+    "email": "zoya123@gmail.com"
+  },
+  "me": {
+    "password": "987654",
+    "role": "user",
+    "email": "me@gmail.com"
+  },
+  "anie": {
+    "password": "65784930",
+    "role": "user",
+    "email": "anie@gmail.com"
+  },
+  "nirma": {
+    "password": "nimra",
+    "role": "user",
+    "email": "nirmaa@gmail.com"
+  },
+  "sultan147": {
+    "password": "sultan147",
+    "role": "user",
+    "email": "sultan@gmail.com"
+  },
+  "jsdnkjsdnfd": {
+    "password": "sndsdjnjsdn",
+    "role": "user",
+    "email": "msankdj@gmail.com"
+  },
+  "msndsnmd": {
+    "password": "amsmsdn",
+    "role": "user",
+    "email": "masndkjn@gmail.com"
+  },
+  "kndsjjfb": {
+    "password": "sdnjsdbfj",
+    "role": "user",
+    "email": "jsajabdhb@gmail.com"
+  },
+  "sdmsk": {
+    "password": "smnndmn",
+    "role": "user",
+    "email": "msannam@gmail.com"
+  },
+  "kjdjskjf": {
+    "password": "nbsdjd",
+    "role": "user",
+    "email": "kjnddna@gmail.com"
+  },
+  "nrfmdngn": {
+    "password": "dfmgmgdfh",
+    "role": "user",
+    "email": "lkdmf@gmail.com"
+  },
+  "hhbbcfc": {
+    "password": "njkjhj;lj",
+    "role": "user",
+    "email": "kjkjlk@gmail.com"
+  },
+  "sdsmdf": {
+    "password": ",mdsm,df",
+    "role": "user",
+    "email": "sadm@gmail.com"
+  },
+  "erjektj": {
+    "password": "krjekrt",
+    "role": "user",
+    "email": "erlkjke@gmail.com"
+  },
+  "jdjsfj": {
+    "password": "dmkfnsd",
+    "role": "user",
+    "email": "dknsfn@gmail.com"
+  },
+  "jhkjfhdj": {
+    "password": "kdkfdskjf",
+    "role": "user",
+    "email": "kldfkfnsk@gmail.com"
+  },
+  "john_doe": {
+    "password": "john",
+    "role": "user",
+    "email": "john@gmail.com"
+  }
+}

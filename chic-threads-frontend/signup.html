@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Chic Threads</title>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- tailwind css cdn -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex justify-content-between align-items-center order-lg-0" href="index.html">
+                <img src="images/logo.png" alt="site icon" >
+            </a>
+
+            <div class="order-lg-2 nav-btns">
+                <a href="profile.html" class="btn btn-outline-primary me-2">Profile</a>
+                <button type="button" class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge bg-primary cart-count">0</span>
+                </button>
+                <button type="button" class="btn position-relative" id="wishlist-nav-btn" data-bs-toggle="modal" data-bs-target="#wishlistModal">
+                    <i class="fa fa-heart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge bg-primary wishlist-count">0</span>
+                </button>
+                <button type="button" class="btn position-relative">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse order-lg-1" id="navMenu">
+                <ul class="navbar-nav mx-auto text-center">
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="index.html#header">home</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="index.html#collection">collection</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="index.html#special">specials</a>
+                    </li>
+                    <li class="nav-item px-2 py2 border-0">
+                        <a class="nav-link text-uppercase text-dark" href="index.html#popular">popular</a>
+                    </li>
+                    <li class="nav-item px-2 py-2 border-0">
+                        <a class="nav-link text-uppercase text-dark" href="./contact.html">contact us</a>
+                    </li>
+                    <li class="nav-item px-2 py-2">
+                        <a class="nav-link text-uppercase text-dark" href="about.html">about us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- end of navbar -->
+
+    <!-- signup form -->
+    <section class="py-5" style="padding-top: 100px;">
+        <div class="container">
+            <div class="row justify-content-center" style="padding-top: 100px;">
+                <div class="col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h2 class="text-center mb-4">Sign Up</h2>
+                            <form id="signup-form">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                            </form>
+                            <p class="text-center mt-3">Already have an account? <a href="login.html">Login</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of signup form -->
+
+    <!-- tailwind css popup -->
+    <div id="signup-popup" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden flex items-center justify-center">
+        <div class="relative p-4 w-full max-w-md">
+            <div id="popup-content" class="relative bg-white rounded-lg shadow">
+                <div class="p-4">
+                    <div id="popup-message" class="text-sm"></div>
+                    <div id="popup-login-btn-container" class="mt-2 hidden">
+                        <a href="login.html" class="inline-block w-full text-center px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Login Now</a>
+                    </div>
+                    <div class="mt-2">
+                        <button id="popup-close-btn" class="inline-block w-full text-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of tailwind css popup -->
+
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Attach submit event listener directly to the signup form
+        const signupForm = document.getElementById('signup-form');
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value;
+
+            console.log("Form submitted with:", { username, password, email });
+
+            fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password, email })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => Promise.reject(data));
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("✅ Success received from backend");
+                // Remove any existing alerts
+                const existingAlert = document.querySelector('.alert');
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+
+                // Show success popup
+                showPopup('Success! Account created successfully.', 'success');
+
+                // Clear form fields after successful signup
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('email').value = '';
+            })
+            .catch(error => {
+                console.log("❌ Error received from backend", error);
+                let errorMessage = "An error occurred during sign up.";
+                if (error && error.message) {
+                    errorMessage = error.message;
+                }
+                
+                // Show error popup
+                showPopup(errorMessage, 'danger');
+            });
+        });
+
+        // Popup notification function
+        function showPopup(message, type) {
+            const popup = document.getElementById('signup-popup');
+            const popupMessage = document.getElementById('popup-message');
+            const popupLoginBtnContainer = document.getElementById('popup-login-btn-container');
+            const popupCloseBtn = document.getElementById('popup-close-btn');
+            const popupContent = document.getElementById('popup-content');
+
+            // Set message and style based on type
+            popupMessage.innerHTML = type === 'success' ? `<strong>Success!</strong> ${message}` : `<strong>Error!</strong> ${message}`;
+            popupContent.className = `relative bg-white rounded-lg shadow ${type === 'success' ? 'border-l-4 border-green-500' : 'border-l-4 border-red-500'}`;
+
+            // Show/hide login button based on type
+            if (type === 'success') {
+                popupLoginBtnContainer.classList.remove('hidden');
+            } else {
+                popupLoginBtnContainer.classList.add('hidden');
+            }
+
+            // Show popup
+            popup.classList.remove('hidden');
+
+            // Close popup on close button click
+            popupCloseBtn.addEventListener('click', () => {
+                popup.classList.add('hidden');
+            });
+
+            // Close popup when clicking outside
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
