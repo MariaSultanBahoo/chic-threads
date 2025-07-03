@@ -1,6 +1,6 @@
 # Chic Threads - Attire Shopping Frontend
 
-Chic Threads is a modern, responsive frontend for an online fashion store. It showcases a wide range of clothing collections, including daily wear, western tops, party wear, and special bridal collections. The project is built with HTML5, CSS3, Bootstrap 5, and JavaScript, providing a seamless shopping experience with features like product filtering, wishlist, cart, and checkout modals.
+Chic Threads is a modern, responsive full stack website for an online fashion store. It showcases a wide range of clothing collections, including daily wear, western tops, party wear, and special bridal collections. The project is built with HTML5, CSS3, Bootstrap 5, and JavaScript, providing a seamless shopping experience with features like product filtering, wishlist, cart, and checkout modals.
 
 ## Features
 
